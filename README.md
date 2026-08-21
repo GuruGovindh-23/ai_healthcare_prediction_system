@@ -114,7 +114,7 @@ Predictive insights are generated.
 Prediction details are stored in MySQL.
 The result is displayed on the web page.
 
-🗄️ Database
+## Database
 
 The application uses MySQL to store prediction results.
 
@@ -146,7 +146,7 @@ prediction_date
 
 Each time a user performs a prediction, the patient information and prediction result are stored in the database.
 
-☁️ Cloud Deployment
+## Cloud Deployment
 
 The application is deployed using Railway.
 
@@ -163,7 +163,7 @@ MYSQLPASSWORD
 MYSQLDATABASE
 
 
-📈 Power BI Integration
+## Power BI Integration
 
 The prediction database is connected to Microsoft Power BI for clinical analytics and visualization.
 
@@ -186,7 +186,7 @@ Blood Pressure Analysis
 Risk Category Distribution
 
 
-📁 Project Structure
+## 📁 Project Structure
 AI_Healthcare_Heart_Disease/
 │
 ├── app.py
@@ -209,7 +209,7 @@ AI_Healthcare_Heart_Disease/
 │
 └── README.md
 
-💻 Installation
+## Installation
 1. Clone the Repository
 git clone YOUR_GITHUB_REPOSITORY_URL
 2. Navigate to the Project Folder
@@ -221,7 +221,7 @@ python app.py
 
 The application will be available at:
 
-aihealthcarepredictionsystem-production.up.railway.app
+https://aihealthcarepredictionsystem-production.up.railway.app/
 Testing
 
 The application was tested using different patient profiles, including:
