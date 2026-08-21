@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        AI Heart Disease Prediction
+    </title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+
+        body {
+
+            background: #eef3f8;
+
+            min-height: 100vh;
+
+            color: #1f2937;
+        }
+
+
+        /* HEADER */
+
+        .header {
+
+            background: #0f172a;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 30px 20px;
+        }
+
+
+        .header h1 {
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .header p {
+
+            font-size: 15px;
+
+            opacity: 0.85;
+        }
+
+
+        /* MAIN CONTAINER */
+
+        .container {
+
+            width: 92%;
+
+            max-width: 1100px;
+
+            margin: 35px auto;
+        }
+
+
+        /* CARD */
+
+        .card {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.08);
+        }
+
+
+        .section-title {
+
+            color: #0f172a;
+
+            margin-bottom: 25px;
+
+            font-size: 23px;
+        }
+
+
+        /* FORM GRID */
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+        }
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        label {
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+
+            color: #374151;
+        }
+
+
+        input,
+        select {
+
+            padding: 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            background: white;
+        }
+
+
+        input:focus,
+        select:focus {
+
+            outline: none;
+
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 2px rgba(37,99,235,0.1);
+        }
+
+
+        /* BUTTON */
+
+        .button-area {
+
+            text-align: center;
+
+            margin-top: 30px;
+        }
+
+
+        button {
+
+            background: #2563eb;
+
+            color: white;
+
+            border: none;
+
+            padding: 14px 35px;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        button:hover {
+
+            background: #1d4ed8;
+        }
+
+
+        /* RESULT */
+
+        .result {
+
+            margin-top: 35px;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            background: #f8fafc;
+
+            text-align: center;
+        }
+
+
+        .result-title {
+
+            font-size: 24px;
+
+            color: #0f172a;
+
+            margin-bottom: 25px;
+        }
+
+
+        .result-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .result-box {
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 3px 10px rgba(0,0,0,0.06);
+        }
+
+
+        .result-box h3 {
+
+            font-size: 14px;
+
+            color: #6b7280;
+
+            margin-bottom: 10px;
+        }
+
+
+        .result-box p {
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+            color: #0f172a;
+        }
+
+
+        /* INSIGHTS */
+
+        .insights {
+
+            margin-top: 30px;
+
+            text-align: left;
+        }
+
+
+        .insights h2 {
+
+            margin-bottom: 15px;
+
+            color: #0f172a;
+        }
+
+
+        .insights ul {
+
+            list-style: none;
+        }
+
+
+        .insights li {
+
+            background: white;
+
+            margin-bottom: 8px;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            border-left: 4px solid #2563eb;
+        }
+
+
+        /* DECISION SUPPORT */
+
+        .decision {
+
+            margin-top: 25px;
+
+            padding: 20px;
+
+            background: #eff6ff;
+
+            border-radius: 10px;
+
+            text-align: left;
+        }
+
+
+        .decision h2 {
+
+            margin-bottom: 10px;
+
+            color: #1e3a8a;
+        }
+
+
+        .decision p {
+
+            margin: 7px 0;
+        }
+
+
+        /* DISCLAIMER */
+
+        .disclaimer {
+
+            margin-top: 25px;
+
+            padding: 15px;
+
+            background: #fff7ed;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            color: #7c2d12;
+
+            text-align: center;
+        }
+
+
+        /* ERROR */
+
+        .error {
+
+            margin-top: 25px;
+
+            padding: 15px;
+
+            background: #fee2e2;
+
+            color: #991b1b;
+
+            border-radius: 8px;
+        }
+
+
+        /* FOOTER */
+
+        .footer {
+
+            text-align: center;
+
+            padding: 25px;
+
+            color: #6b7280;
+
+            font-size: 13px;
+        }
+
+
+        /* MOBILE */
+
+        @media(max-width: 700px) {
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .result-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .header h1 {
+
+                font-size: 23px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<div class="header">
+
+    <h1>
+        AI-Powered Heart Disease Prediction
+    </h1>
+
+    <p>
+        Naive Bayes Machine Learning Prediction System
+    </p>
+
+</div>
+
+
+
+<div class="container">
+
+
+<div class="card">
+
+
+<h2 class="section-title">
+    Patient Information
+</h2>
+
+
+
+<!-- =====================================================
+     FORM
+===================================================== -->
+
+<form action="/predict" method="POST">
+
+
+<div class="form-grid">
+
+
+<!-- AGE -->
+
+<div class="form-group">
+
+<label>
+    Age
+</label>
+
+<input
+    type="number"
+    name="age"
+    min="1"
+    max="120"
+    required
+>
+
+</div>
+
+
+
+<!-- SEX -->
+
+<div class="form-group">
+
+<label>
+    Sex
+</label>
+
+<select name="sex" required>
+
+<option value="">
+    Select
+</option>
+
+<option value="1">
+    Male
+</option>
+
+<option value="0">
+    Female
+</option>
+
+</select>
+
+</div>
+
+
+
+<!-- CP -->
+
+<div class="form-group">
+
+<label>
+    Chest Pain Type
+</label>
+
+<input
+    type="number"
+    name="cp"
+    min="1"
+    max="4"
+    required
+>
+
+</div>
+
+
+
+<!-- BLOOD PRESSURE -->
+
+<div class="form-group">
+
+<label>
+    Resting Blood Pressure
+</label>
+
+<input
+    type="number"
+    name="trestbps"
+    required
+>
+
+</div>
+
+
+
+<!-- CHOLESTEROL -->
+
+<div class="form-group">
+
+<label>
+    Cholesterol
+</label>
+
+<input
+    type="number"
+    name="chol"
+    required
+>
+
+</div>
+
+
+
+<!-- FBS -->
+
+<div class="form-group">
+
+<label>
+    Fasting Blood Sugar
+</label>
+
+<select name="fbs" required>
+
+<option value="0">
+    No
+</option>
+
+<option value="1">
+    Yes
+</option>
+
+</select>
+
+</div>
+
+
+
+<!-- ECG -->
+
+<div class="form-group">
+
+<label>
+    Resting ECG Result
+</label>
+
+<input
+    type="number"
+    name="restecg"
+    min="0"
+    max="2"
+    required
+>
+
+</div>
+
+
+
+<!-- THALACH -->
+
+<div class="form-group">
+
+<label>
+    Maximum Heart Rate
+</label>
+
+<input
+    type="number"
+    name="thalach"
+    required
+>
+
+</div>
+
+
+
+<!-- EXANG -->
+
+<div class="form-group">
+
+<label>
+    Exercise Induced Angina
+</label>
+
+<select name="exang" required>
+
+<option value="0">
+    No
+</option>
+
+<option value="1">
+    Yes
+</option>
+
+</select>
+
+</div>
+
+
+
+<!-- OLDPEAK -->
+
+<div class="form-group">
+
+<label>
+    ST Depression (Oldpeak)
+</label>
+
+<input
+    type="number"
+    name="oldpeak"
+    step="0.1"
+    required
+>
+
+</div>
+
+
+
+<!-- SLOPE -->
+
+<div class="form-group">
+
+<label>
+    Slope
+</label>
+
+<input
+    type="number"
+    name="slope"
+    min="1"
+    max="3"
+    required
+>
+
+</div>
+
+
+
+<!-- CA -->
+
+<div class="form-group">
+
+<label>
+    Number of Major Vessels
+</label>
+
+<input
+    type="number"
+    name="ca"
+    min="0"
+    max="3"
+    required
+>
+
+</div>
+
+
+
+<!-- THAL -->
+
+<div class="form-group">
+
+<label>
+    Thalassemia Type
+</label>
+
+<input
+    type="number"
+    name="thal"
+    required
+>
+
+</div>
+
+
+</div>
+
+
+
+<!-- BUTTON -->
+
+<div class="button-area">
+
+<button type="submit">
+
+    Predict Heart Disease Risk
+
+</button>
+
+</div>
+
+
+</form>
+
+
+
+<!-- =====================================================
+     RESULT
+===================================================== -->
+
+{% if prediction %}
+
+
+<div class="result">
+
+
+<h2 class="result-title">
+
+    Prediction Result
+
+</h2>
+
+
+
+<div class="result-grid">
+
+
+<div class="result-box">
+
+<h3>
+    Disease Status
+</h3>
+
+<p>
+    {{ prediction }}
+</p>
+
+</div>
+
+
+
+<div class="result-box">
+
+<h3>
+    Disease Probability
+</h3>
+
+<p>
+    {{ probability }}%
+</p>
+
+</div>
+
+
+
+<div class="result-box">
+
+<h3>
+    Risk Category
+</h3>
+
+<p>
+    {{ risk }}
+</p>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     PREDICTIVE INSIGHTS
+===================================================== -->
+
+<div class="insights">
+
+
+<h2>
+    Predictive Insights
+</h2>
+
+
+<ul>
+
+{% for insight in insights %}
+
+<li>
+    {{ insight }}
+</li>
+
+{% endfor %}
+
+</ul>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     DECISION SUPPORT
+===================================================== -->
+
+<div class="decision">
+
+
+<h2>
+    Decision Support
+</h2>
+
+
+{% for decision in decision_support %}
+
+<p>
+    • {{ decision }}
+</p>
+
+{% endfor %}
+
+
+</div>
+
+
+
+<!-- DISCLAIMER -->
+
+<div class="disclaimer">
+
+<strong>Important:</strong>
+
+This is an AI-based prediction and
+decision-support tool and is not a medical diagnosis.
+Clinical decisions should be made by qualified
+healthcare professionals.
+
+</div>
+
+
+</div>
+
+
+{% endif %}
+
+
+
+<!-- =====================================================
+     ERROR
+===================================================== -->
+
+{% if error %}
+
+<div class="error">
+
+<strong>
+    Error:
+</strong>
+
+{{ error }}
+
+</div>
+
+{% endif %}
+
+
+</div>
+
+</div>
+
+
+
+<div class="footer">
+
+AI-Powered Healthcare Disease Prediction
+and Clinical Analytics Platform
+
+</div>
+
+
+</body>
+
+</html>
