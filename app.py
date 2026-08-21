@@ -34,7 +34,7 @@ def get_db_connection():
         user=os.environ["MYSQLUSER"],
         password=os.environ["MYSQLPASSWORD"],
         database=os.environ["MYSQL_DATABASE"]
-    ))
+    )
 
     return connection
 
