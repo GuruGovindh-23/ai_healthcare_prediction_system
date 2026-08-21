@@ -29,10 +29,11 @@ final_model = joblib.load(
 def get_db_connection():
 
     connection = mysql.connector.connect(
-        host="sakura.proxy.rlwy.net",
-        user="root",
-        password="eBPHVYOROlryVqBDabSNQMRYRPNJkwzj",
-        database="railway"
+        host=os.environ["sakura.proxy.rlwy.net"],
+        port=int(os.environ["58563"]),
+        user=os.environ["root"],
+        password=os.environ["eBPHVYOROlryVqBDabSNQMRYRPNJkwzj"],
+        database=os.environ["railway"]
     )
 
     return connection
